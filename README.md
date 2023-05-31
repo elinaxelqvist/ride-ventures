@@ -1,2 +1,3 @@
 # ride-ventures
-Inlämningsuppgift 2023-05-30
+
+Detta projekt är en inlämningsuppgift från 2023-05-30.
