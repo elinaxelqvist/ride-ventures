@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
+    <script>
+       function validateEmail(email) {
+    // Validate email
+    if (email.lastIndexOf(".") > email.indexOf("@") + 2 && email.indexOf("@") > 0 && email.length - email.lastIndexOf(".") > 2) {
+        return true;
+    }
+    return false;
+}
+
+function validateFields() {
+    let form = document.forms['register'];
+    let email = form['email'].value;
+    let password = form['password'].value;
+
+    // Check that fields are not empty
+    if (email.trim() === '' || password.trim() === '') {
+        alert("Please fill in all fields");
+        return false;
+    }
+
+    // Validate email
+    if (!validateEmail(email)) {
+        alert("Please enter a valid email address");
+        return false;
+    }
+
+    return true;
+}
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>RideVentures</h1>
+        </div>
+    </div>
+    <div class="center-flex" id="container">
+        <form name="register" action="login.php" method="POST" onsubmit="return validateFields()">
+            <label for="text">Log in down below!<br><br></label>
+            <label for="email">E-mail:</label>
+            <input type="email" name="email" id="email" placeholder="john@smith.com">
+			<label for="password">Password:</label>
+            <input type="password" name="password" id="password" minlength="4" placeholder="Enter a password">
+            <input type="submit" value="Log in">
+        </form>
+    </div>
+</body>
+</html>

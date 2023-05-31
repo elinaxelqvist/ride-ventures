@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
+    <script>
+       function validateEmail(email) {
+    // Validera e-postadress
+    if (email.lastIndexOf(".") > email.indexOf("@") + 2 && email.indexOf("@") > 0 && email.length - email.lastIndexOf(".") > 2) {
+        return true;
+    }
+    return false;
+}
+function test() {
+    let form = document.forms['register'];
+    let email = form['email'].value;
+    let password = form['password'].value;
+
+    // Kontrollera att alla fält är ifyllda
+    if (email.trim() === '' || password.trim() === '') {
+        alert("Please fill in all fields");
+        return false;
+    }
+
+    // Validera e-postadress
+    if (!validateEmail(email)) {
+        alert("Please enter a valid email address");
+        return false;
+    }
+
+    return true;
+}
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>RideVentures</h1>
+        </div>
+    </div>
+    <div class="header">
+        <p class="header-subtitle">"Riding a bike is like an art, something you do because you feel something inside"<br>-Valentino Rossi</p>
+    </div>
+    <div class="center-flex" id="container">
+        <form name="register" action="/Form/register.html"method="GET"="return test()">
+            <label for="text">Welcome to RideVentures!<br>Register down below to start sharing your favorite roads!<br><br></label>
+            <input type="submit" value="Create a new account">
+        </form>
+    </div>
+</body>
+</html>
