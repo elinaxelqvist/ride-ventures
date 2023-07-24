@@ -13,7 +13,7 @@ function getComments() {
 
         // Add comment, using userId that is found in session
         //SELECT u.email, c.comment FROM user u JOIN content c ON c.user_id = u.id ORDER BY c.id;
-        $selectQuery = "select u.email,c.comment from user u join content c on c.user_id = u.id order by c.id";
+        $selectQuery = "select u.email,c.comment from user u join content c on c.user_id = u.id order by c.id desc";
         $result = $pdo->query($selectQuery);
         $rows = $result->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
