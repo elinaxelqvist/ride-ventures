@@ -55,12 +55,27 @@
       });
     }
 
+      function validateComment() {
+        console.debug('Checking comment...');  
+        const comment = document.getElementById('comment');
+        const trimmedComment = comment.value.trim(); // Remove leading and trailing whitespaces
+
+        console.debug('Original text: ' + comment.value);
+        console.debug('Trimmed text: ' + trimmedComment);
+        if (trimmedComment.length === 0) {
+            alert('Comments cannot be empty.');
+            console.debug('Comment was empty');
+            return false; // Prevent form submission
+        }
+        console.debug('Comment was non-empty: ' + trimmedComment);
+        return true; // Allow form submission
+      }
+
     // Call the function to check login status on page load
     checkLoginStatus();
     </script>
 </head>
 <body>
-
     <div class="header">
         <div id="navbar" class="navbar">
           <a id="register" href="register.html">Register</a>
@@ -74,10 +89,10 @@
     </div>
 
     <div class="center-flex" id="container">
-        <textarea id="comments" name="comments" placeholder="Comments"readonly></textarea>
-        <form name="register" id="addComment" action="postComment.php" method="POST">
-            <label for="type">Share your favourite road down below!<br><br>Describe the road! What is the name of the road? Do you have the address? Anything special about it?</label>
-            <textarea name="comment"></textarea>
+        <textarea id="comments" name="comments" placeholder="Comments" readonly></textarea>
+        <form onsubmit="return validateComment()" name="register" id="addComment" action="postComment.php" method="POST">
+            <label for="comment">Share your favourite road down below!<br><br>Describe the road! What is the name of the road? Do you have the address? Anything special about it?</label>
+            <textarea id="comment" name="comment"></textarea>
             <input type="submit" value="Share my road">
         </form>
     </div>
