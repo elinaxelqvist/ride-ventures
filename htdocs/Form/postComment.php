@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 $logFilePath = "log.txt";
@@ -7,6 +8,7 @@ function postComment($userId, $comment) {
 
     // Establish a connection to database
     try {
+
         // connect to DB
         $databasePath = 'db/elins.db';
         $pdo = new PDO("sqlite:$databasePath");
@@ -20,35 +22,44 @@ function postComment($userId, $comment) {
         $statement->bindValue(':comment', $comment, SQLITE3_TEXT);
         $statement->bindValue(':userId', $userId, SQLITE3_INTEGER);
         $statement->execute();
-        header('Location: index.html');
-
     } catch (PDOException $e) {
-        error_log("postComment: " . $e->getMessage() . "\n", 3, $logFilePath);
-
-        header('Location: error.html');
+        throw new Exception("postComment: " . $e->getMessage());
     }
 } 
 
+function validateUserLoggedIn() {
+   if (!isset($_SESSION["userId"])) {       
+        throw new Exception("postComment: Undefined user is not allowed");
+    }
+}
+
+function getUserId() {        
+    $userId = $_SESSION["userId"];
+    return intval($userId);
+ }
+
 function validateComment($comment) {
     if (empty($comment)) {
-        header('Location: index.html');
-        exit();
+        throw new Exception("postComment: Empty comment is not allowed");
     }
 }
 // Main
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {        
+        validateUserLoggedIn();
+        $userId = getUserId();
 
-    $comment = $_POST["comment"];
-    $userId = $_SESSION["userId"];
-    $userIdAsInt = intval($userId);
+        $comment = $_POST["comment"];
+        validateComment($comment);
     
-    validateComment($comment);
-
-    error_log("postComment: userId: " . $userIdAsInt . "\n", 3, $logFilePath);
-    error_log("postComment: comment: " . $comment . "\n", 3, $logFilePath);
-
+        error_log("postComment: userId: " . $userId . "\n", 3, $logFilePath);
+        error_log("postComment: comment: " . $comment . "\n", 3, $logFilePath);
     
-    // // Call the registerUser function
-    postComment($userIdAsInt, $comment);
+        postComment($userId, $comment);
+        header('Location: index.html');
+    } catch (Exception $e) {
+        error_log($e->getMessage(). "\n", 3, $logFilePath);
+        header('Location: error.html');
+    }
 }
 ?>
