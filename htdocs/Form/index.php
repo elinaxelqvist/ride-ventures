@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment site</title>
+    <title>Ride Ventures</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,53 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
+    <script src="js/load_comments.js"></script>
+    <script src="js/update_menu_bar.js"></script>
     <script src="js/validate_comment.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Fetch comments from PHP file
-            $.getJSON('getComments.php', function(data) {
-                console.log(data);
-                // Iterate over the comments and append them to the textarea
-                var textarea = $('#comments');
-                data.forEach(function(comment) {
-                    textarea.val(textarea.val() + comment.email + ": " + comment.comment + "\n");
-                });
-            }).fail(function(jqXHR, textStatus, errorThrown) { console.log("Failed to show comments:", errorThrown);});
-        });
-    </script>
-    <script>
-    // Function to check login status
-    function checkLoginStatus() {
-      //AJAX request to the PHP function or API endpoint, checks login status
-      $.ajax({
-        url: 'checkLogin.php',
-        method: 'GET',
-        success: function(response) {
-          if (response.loggedIn) {
-            // User is logged in, show the logout only
-            console.debug("Logged in");
-            document.getElementById('register').style.display = 'none';
-            document.getElementById('login').style.display = 'none';
-            document.getElementById('logout').style.display = 'float';
-          } else {
-            // User is not logged in, show only register & login
-            console.debug("Not logged in");
-            document.getElementById('register').style.display = 'float';
-            document.getElementById('login').style.display = 'float';
-            document.getElementById('logout').style.display = 'none';
- 
-          }
-        },
-        error: function() {
-          // Handle error case
-          console.log('Error occurred while checking login status.');
-        }
-      });
-    }
-
-    // Call the function to check login status on page load
-    checkLoginStatus();
-    </script>
 </head>
 <body>
   <?php
