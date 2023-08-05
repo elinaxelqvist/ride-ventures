@@ -21,7 +21,7 @@ function getComments() {
     } catch (PDOException $e) {
         error_log("postComment: " . $e->getMessage() . "\n", 3, $logFilePath);
 
-        header('Location: index.html');
+        header('Location: index.php');
     }
 } 
 

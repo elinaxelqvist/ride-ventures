@@ -20,7 +20,7 @@
                 data.forEach(function(comment) {
                     textarea.val(textarea.val() + comment.email + ": " + comment.comment + "\n");
                 });
-            }).fail(function(jqXHR, textStatus, errorThrown) { console.log("Nisse:", errorThrown);});
+            }).fail(function(jqXHR, textStatus, errorThrown) { console.log("Failed to show comments:", errorThrown);});
         });
     </script>
     <script>
@@ -32,16 +32,14 @@
         method: 'GET',
         success: function(response) {
           if (response.loggedIn) {
-            // User is logged in, show the forn
+            // User is logged in, show the logout only
             console.debug("Logged in");
-            document.getElementById('addComment').style.display = 'block';
             document.getElementById('register').style.display = 'none';
             document.getElementById('login').style.display = 'none';
             document.getElementById('logout').style.display = 'float';
           } else {
-            // User is not logged in, hide the form
+            // User is not logged in, show only register & login
             console.debug("Not logged in");
-            document.getElementById('addComment').style.display = 'none';
             document.getElementById('register').style.display = 'float';
             document.getElementById('login').style.display = 'float';
             document.getElementById('logout').style.display = 'none';
@@ -76,6 +74,11 @@
     </script>
 </head>
 <body>
+  <?php
+    include 'isLoggedIn.php';
+    $loggedIn = isLoggedIn();
+  ?>
+
     <div class="header">
         <div id="navbar" class="navbar">
           <a id="register" href="register.html">Register</a>
@@ -90,11 +93,14 @@
 
     <div class="center-flex" id="container">
         <textarea id="comments" name="comments" placeholder="Comments" readonly></textarea>
+
+        <?php if ($loggedIn): ?>
         <form onsubmit="return validateComment()" name="register" id="addComment" action="postComment.php" method="POST">
             <label for="comment">Share your favourite road down below!<br><br>Describe the road! What is the name of the road? Do you have the address? Anything special about it?</label>
             <textarea id="comment" name="comment"></textarea>
             <input type="submit" value="Share my road">
         </form>
+        <?php endif; ?>
     </div>
 </body>
 </html>

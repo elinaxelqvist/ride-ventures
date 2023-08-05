@@ -59,6 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION["userId"] = $userId;
     error_log("loginUser: userId in session:" . $_SESSION["userId"] . "\n", 3, $logFilePath);
 
-    header('Location: index.html');
+    header('Location: index.php');
 }
 ?>

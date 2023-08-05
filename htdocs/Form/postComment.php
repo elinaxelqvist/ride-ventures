@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error_log("postComment: comment: " . $comment . "\n", 3, $logFilePath);
     
         postComment($userId, $comment);
-        header('Location: index.html');
+        header('Location: index.php');
     } catch (Exception $e) {
         error_log($e->getMessage(). "\n", 3, $logFilePath);
         header('Location: error.html');
