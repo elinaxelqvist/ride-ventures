@@ -7,9 +7,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="js/validate_comment.js"></script>
     <script>
         $(document).ready(function() {
             // Fetch comments from PHP file
@@ -52,22 +54,6 @@
         }
       });
     }
-
-      function validateComment() {
-        console.debug('Checking comment...');  
-        const comment = document.getElementById('comment');
-        const trimmedComment = comment.value.trim(); // Remove leading and trailing whitespaces
-
-        console.debug('Original text: ' + comment.value);
-        console.debug('Trimmed text: ' + trimmedComment);
-        if (trimmedComment.length === 0) {
-            alert('Comments cannot be empty.');
-            console.debug('Comment was empty');
-            return false; // Prevent form submission
-        }
-        console.debug('Comment was non-empty: ' + trimmedComment);
-        return true; // Allow form submission
-      }
 
     // Call the function to check login status on page load
     checkLoginStatus();
