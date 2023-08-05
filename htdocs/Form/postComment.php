@@ -1,4 +1,5 @@
 <?php
+include 'isLoggedIn.php';
 
 session_start();
 
@@ -28,8 +29,8 @@ function postComment($userId, $comment) {
 } 
 
 function validateUserLoggedIn() {
-   if (!isset($_SESSION["userId"])) {       
-        throw new Exception("postComment: Undefined user is not allowed");
+   if (!isLoggedIn()) {       
+        throw new Exception("postComment: User is not logged in");
     }
 }
 
